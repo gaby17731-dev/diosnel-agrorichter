@@ -4,67 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Diosnel López - Agro Richter</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{font-family:Arial;background:#f5f5f5;margin:0;padding:20px}
+.card{max-width:500px;margin:auto;background:white;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.header{background:#111;color:white;text-align:center;padding:25px}
+.header h1{margin:0} .header p{color:#22c55e;margin:5px 0}
+.btn{display:block;background:#15803d;color:white;text-align:center;padding:15px;margin:20px;border-radius:30px;text-decoration:none;font-weight:bold}
+.catalogo{padding:20px} .catalogo h2{margin-top:0}
+.fotos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fotos img{width:100%;border-radius:12px;border:1px solid #eee}
+</style>
 </head>
-<body class="bg-[#f0fdf4]">
-
-<div class="max-w-4xl mx-auto bg-white mt-6 rounded-2xl shadow-xl overflow-hidden">
-  <div class="bg-green-900 text-white p-8 text-center">
-    <img src="/logo.jpg" style="width:180px; display:block; margin:0 auto 15px auto; border-radius:8px; background:white; padding:5px;">
-    <h1 class="text-4xl font-black">Diosnel López</h1>
-    <p class="text-green-300 font-bold text-xl">Asesor Comercial - Agro Richter</p>
-    <p class="mt-2">Te ayudo a conseguir tu herramienta de trabajo con financiación</p>
+<body>
+<div class="card">
+  <div class="header">
+    <img src="logo.jpg" style="width:80px;border-radius:10px;background:white;padding:5px">
+    <h1>Diosnel López</h1>
+    <p>Asesor Comercial - Agro Richter</p>
+    <small>Te ayudo a conseguir tu 0KM con financiación</small>
   </div>
-
-  <div class="p-8">
-    <a href="https://wa.me/595986517567?text=Hola%20Diosnel%20vi%20tu%20pagina" class="block bg-green-600 text-white text-center py-4 rounded-xl font-black text-xl">HABLAME AL WHATSAPP</a>
-
-    <h2 class="mt-8 font-black text-2xl text-green-900">Mi Catálogo</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-      
-      <div class="border-2 rounded-xl overflow-hidden">
-        <img src="/fotos/pala-cargadora-tder-zt-906.jpg" class="w-full h-64 object-cover">
-        <div class="p-4">
-          <h3 class="font-black text-xl">Pala Cargadora TIDER ZT 906</h3>
-          <p class="text-green-600 font-bold text-xl">Pedir presupuesto</p>
-          <p class="text-sm text-gray-600">Entrega inmediata + Financiación</p>
-        </div>
-      </div>
-
-      <div class="border-2 rounded-xl overflow-hidden">
-        <img src="/fotos/pala-01.jpg" class="w-full h-64 object-cover">
-        <div class="p-4">
-          <h3 class="font-black text-xl">Pala Cargadora - Modelo 01</h3>
-          <p class="text-green-600 font-bold">Pedir presupuesto</p>
-        </div>
-      </div>
-
-      <div class="border-2 rounded-xl overflow-hidden">
-        <img src="/fotos/pala-02.jpg" class="w-full h-64 object-cover">
-        <div class="p-4"><h3 class="font-black text-xl">Pala Cargadora - Modelo 02</h3></div>
-      </div>
-
-      <div class="border-2 rounded-xl overflow-hidden">
-        <img src="/fotos/pala-03.jpg" class="w-full h-64 object-cover">
-        <div class="p-4"><h3 class="font-black text-xl">Pala Cargadora - Modelo 03</h3></div>
-      </div>
-
-      <div class="border-2 rounded-xl overflow-hidden">
-        <img src="/fotos/tractor-con-pala-40-hp.jpg" class="w-full h-64 object-cover">
-        <div class="p-4"><h3 class="font-black text-xl">Tractor con Pala 40 HP</h3></div>
-      </div>
-
-      <div class="border-2 rounded-xl overflow-hidden">
-        <img src="/fotos/tractor-con-pala.jpg" class="w-full h-64 object-cover">
-        <div class="p-4"><h3 class="font-black text-xl">Tractor con Pala</h3></div>
-      </div>
-
+  <a class="btn" href="https://wa.me/595982123456">Hablar por WhatsApp</a>
+  <div class="catalogo">
+    <h2>Mi Catálogo</h2>
+    <div class="fotos">
+      <img src="fotos/pala-01.jpg">
+      <img src="fotos/pala-02.jpg">
+      <img src="fotos/pala-03.jpg">
+      <img src="fotos/pala-cargadora-02.jpg">
+      <img src="fotos/pala-cargadora-tder-zt-906.jpg">
+      <img src="fotos/pala-cargadora03.jpg">
+      <img src="fotos/tractor-con-pala-40-hp.jpg">
+      <img src="fotos/tractor-con-pala.jpg">
+      <img src="fotos/tractor-con-pala70-hp.jpg">
+      <img src="fotos/tractor-con-pla-40-hp.jpg">
+      <img src="fotos/tractor-tdr-40-70-100-hp.jpg">
     </div>
-
-    <p class="mt-6 text-center text-gray-500 text-sm">Agregá más fotos en la carpeta public/fotos y las muestro acá</p>
   </div>
 </div>
-
 </body>
 </html>
