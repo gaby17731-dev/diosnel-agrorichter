@@ -1,38 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ventas - Agro Richter</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#f0faf0]">
-<div class="bg-[#0f4c0f] text-white p-4 flex justify-between items-center">
-  <div class="flex items-center gap-3"><div class="bg-white w-10 h-10 rounded flex items-center justify-center text-green-800 font-bold">AR</div><div><h1 class="font-bold">Agro Richter</h1><p class="text-xs text-green-300">Ventas - Diosnel López</p></div></div>
-  <div class="flex gap-2"><a href="index.html" class="text-xs bg-white/20 px-3 py-2 rounded-full">← Catálogo</a><button onclick="abrirModal()" class="bg-yellow-400 text-black px-4 py-2 rounded-full font-bold text-sm">+ Nuevo Deal</button></div>
+<body class="bg-slate-100">
+<div class="bg-green-700 text-white p-4 flex justify-between items-center sticky top-0">
+<div class="flex items-center gap-2"><div class="bg-white text-green-700 w-10 h-10 rounded-xl flex items-center justify-center font-black">AR</div><div><h1 class="font-bold leading-none">Agro Richter</h1><p class="text-xs opacity-80">Sistema de Ventas</p></div></div>
+<div class="flex gap-2"><a href="index.html" class="bg-white/20 px-4 py-2 rounded-full text-sm">Catálogo</a><button onclick="abrir()" class="bg-white text-green-700 px-4 py-2 rounded-full font-bold text-sm">+ Venta</button></div>
 </div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 max-w-7xl mx-auto">
-  <div class="bg-white rounded-xl p-4 shadow border-l-4 border-yellow-400"><p class="text-[11px] opacity-60 font-bold">Pipeline Total</p><p id="stat-total" class="text-2xl font-extrabold text-[#0f4c0f]">Gs. 0</p></div>
-  <div class="bg-white rounded-xl p-4 shadow border-l-4 border-green-600"><p class="text-[11px] opacity-60 font-bold">Deals Activos</p><p id="stat-activos" class="text-2xl font-extrabold">0</p></div>
-  <div class="bg-white rounded-xl p-4 shadow"><p class="text-[11px] opacity-60">Tasa Cierre</p><p class="text-2xl font-extrabold">33%</p></div>
-  <div class="bg-white rounded-xl p-4 shadow"><p class="text-[11px] opacity-60">Ciclo Promedio</p><p class="text-2xl font-extrabold">27 días</p></div>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 max-w-6xl mx-auto">
+<div class="bg-white p-4 rounded-xl shadow border-l-4 border-green-600"><p class="text-[11px] opacity-60 font-bold">VENTAS HOY</p><p id="s-hoy" class="text-2xl font-black">0</p></div>
+<div class="bg-white p-4 rounded-xl shadow border-l-4 border-blue-600"><p class="text-[11px] opacity-60 font-bold">TOTAL GS.</p><p id="s-total" class="text-xl font-black">Gs. 0</p></div>
+<div class="bg-white p-4 rounded-xl shadow border-l-4 border-yellow-500"><p class="text-[11px] opacity-60 font-bold">A COBRAR</p><p id="s-cobrar" class="text-xl font-black">Gs. 0</p></div>
+<div class="bg-white p-4 rounded-xl shadow"><p class="text-[11px] opacity-60">CLIENTES</p><p id="s-cli" class="text-2xl font-black">0</p></div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-5 gap-3 p-4 max-w-7xl mx-auto">
-  <div class="bg-[#0f4c0f] rounded-xl p-2"><h2 class="text-white text-center font-bold py-2 text-sm flex justify-between px-2">Nuevo Lead <span id="c-nuevo" class="bg-yellow-300 text-black rounded-full px-2">0</span></h2><div id="col-nuevo" class="space-y-2"></div></div>
-  <div class="bg-[#fff8d0] rounded-xl p-2"><h2 class="text-center font-bold py-2 text-sm flex justify-between px-2">Presupuesto Enviado <span id="c-pres" class="bg-[#0f4c0f] text-white rounded-full px-2">0</span></h2><div id="col-pres" class="space-y-2"></div></div>
-  <div class="bg-[#0f4c0f] rounded-xl p-2"><h2 class="text-white text-center font-bold py-2 text-sm flex justify-between px-2">Negociación <span id="c-neg" class="bg-yellow-300 text-black rounded-full px-2">0</span></h2><div id="col-neg" class="space-y-2"></div></div>
-  <div class="bg-[#0f4c0f] rounded-xl p-2"><h2 class="text-white text-center font-bold py-2 text-sm flex justify-between px-2">Venta Cerrada <span id="c-cerr" class="bg-yellow-300 text-black rounded-full px-2">0</span></h2><div id="col-cerr" class="space-y-2"></div></div>
-  <div class="bg-[#0f4c0f] rounded-xl p-2"><h2 class="text-white text-center font-bold py-2 text-sm flex justify-between px-2">Entregado <span id="c-ent" class="bg-yellow-300 text-black rounded-full px-2">0</span></h2><div id="col-ent" class="space-y-2"></div></div>
+
+<div class="max-w-6xl mx-auto p-4">
+<div class="bg-white rounded-xl shadow overflow-hidden">
+<div class="p-4 border-b flex justify-between items-center"><h2 class="font-bold">Últimas Ventas</h2><input id="bus" oninput="render()" placeholder="Buscar cliente..." class="border rounded-full px-3 py-2 text-sm"></div>
+<div id="lista" class="divide-y"></div>
 </div>
-<div id="modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50"><div class="bg-white rounded-2xl p-6 w-full max-w-md space-y-3"><h3 class="font-bold text-lg">Nuevo Deal</h3><input id="f_cliente" placeholder="Cliente" class="w-full border p-3 rounded-xl text-sm"><select id="f_maquina" class="w-full border p-3 rounded-xl text-sm"><option>Pala Cargadora TIDER ZT 906</option><option>Pala Cargadora - Modelo 01</option><option>Pala Cargadora - Modelo 02</option><option>Pala Cargadora - Modelo 03</option><option>Tractor con Pala 40 HP</option><option>Tractor con Pala</option></select><input id="f_precio" placeholder="Precio Gs." type="number" class="w-full border p-3 rounded-xl text-sm"><select id="f_estado" class="w-full border p-3 rounded-xl text-sm"><option>Nuevo Lead</option><option>Presupuesto Enviado</option><option>Negociación</option><option>Venta Cerrada</option><option>Entregado</option></select><input id="f_nota" placeholder="Nota" class="w-full border p-3 rounded-xl text-sm"><div class="flex gap-2"><button onclick="cerrarModal()" class="flex-1 border py-3 rounded-xl">Cancelar</button><button onclick="guardar()" class="flex-1 bg-[#0f4c0f] text-white py-3 rounded-xl font-bold">Guardar</button></div></div></div>
+</div>
+
+<div id="modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50"><div class="bg-white rounded-2xl p-6 w-full max-w-md space-y-3"><h3 class="font-bold text-lg">Nueva Venta</h3><input id="f_cli" placeholder="Cliente: Ej. Diosnel - 0981..." class="w-full border p-3 rounded-xl text-sm"><input id="f_prod" placeholder="Producto: Ej. Urea 50kg" class="w-full border p-3 rounded-xl text-sm"><input id="f_monto" type="number" placeholder="Monto Gs." class="w-full border p-3 rounded-xl text-sm"><select id="f_estado" class="w-full border p-3 rounded-xl text-sm"><option value="Pagado">Pagado ✅</option><option value="A Cobrar">A Cobrar ⏳</option><option value="Entregado">Entregado 📦</option></select><div class="flex gap-2"><button onclick="cerrar()" class="flex-1 border py-3 rounded-xl">Cancelar</button><button onclick="guardar()" class="flex-1 bg-green-700 text-white py-3 rounded-xl font-bold">Guardar Venta</button></div></div></div>
+
 <script>
-let deals=JSON.parse(localStorage.getItem('agro_richter_ventas'))||[{cliente:"Agrícola del Valle - Córdoba",maquina:"Pala Cargadora TIDER ZT 906",precio:85000000,estado:"Nuevo Lead",nota:"Fuente: Web - Frío"},{cliente:"Campo Verde",maquina:"Pala Cargadora - Modelo 02",precio:52000000,estado:"Nuevo Lead",nota:"Referido"},{cliente:"Campos Sur",maquina:"Pala Cargadora - Modelo 01",precio:220000000,estado:"Presupuesto Enviado",nota:"Pendiente 4 días"},{cliente:"Finca La Esperanza",maquina:"Tractor con Pala 40 HP",precio:120000000,estado:"Presupuesto Enviado",nota:"Esperando aprobación"},{cliente:"Agro Norte",maquina:"Pala Cargadora - Modelo 03",precio:195000000,estado:"Negociación",nota:"Descuento 5%"},{cliente:"Tierras del Sur",maquina:"Tractor con Pala",precio:72000000,estado:"Negociación",nota:"Financiación"},{cliente:"Agro Norte",maquina:"Tractor con Pala 40 HP",precio:310000000,estado:"Venta Cerrada",nota:"Contrato firmado"},{cliente:"Valle Campo",maquina:"Pala Cargadora - Modelo 01",precio:64000000,estado:"Venta Cerrada",nota:"Contrato firmado"},{cliente:"Río Verde",maquina:"Pala Cargadora - Modelo 02",precio:145000000,estado:"Entregado",nota:"Entregado"}];
-function formatGs(n){return'Gs. '+Number(n).toLocaleString('es-PY');}
-function render(){const cols={'Nuevo Lead':'col-nuevo','Presupuesto Enviado':'col-pres','Negociación':'col-neg','Venta Cerrada':'col-cerr','Entregado':'col-ent'};Object.values(cols).forEach(id=>document.getElementById(id).innerHTML='');let total=0;deals.forEach((d,i)=>{total+=Number(d.precio)||0;let card=`<div class="bg-white border-2 rounded-xl p-3 shadow-sm"><p class="font-bold text-[13px]">🚜 ${d.maquina}</p><p class="text-[11px] opacity-70">Cliente: ${d.cliente}</p><p class="font-extrabold text-[#0f4c0f] mt-1">${formatGs(d.precio)}</p><p class="text-[11px] mt-2 bg-yellow-50 p-1.5 rounded-lg">${d.nota}</p><div class="flex gap-1 mt-2"><button onclick="mover(${i})" class="text-[10px] bg-[#0f4c0f] text-white px-3 py-1.5 rounded-full font-bold">Mover →</button><button onclick="whatsapp(${i})" class="text-[10px] bg-green-500 text-white px-2 py-1.5 rounded-full">WA</button><button onclick="borrar(${i})" class="text-[10px] text-red-400 ml-auto">X</button></div></div>`;document.getElementById(cols[d.estado]).innerHTML+=card;});document.getElementById('c-nuevo').innerText=deals.filter(d=>d.estado==='Nuevo Lead').length;document.getElementById('c-pres').innerText=deals.filter(d=>d.estado==='Presupuesto Enviado').length;document.getElementById('c-neg').innerText=deals.filter(d=>d.estado==='Negociación').length;document.getElementById('c-cerr').innerText=deals.filter(d=>d.estado==='Venta Cerrada').length;document.getElementById('c-ent').innerText=deals.filter(d=>d.estado==='Entregado').length;document.getElementById('stat-total').innerText=formatGs(total);document.getElementById('stat-activos').innerText=deals.filter(d=>d.estado!=='Entregado').length;localStorage.setItem('agro_richter_ventas',JSON.stringify(deals));}
-function mover(i){const orden=["Nuevo Lead","Presupuesto Enviado","Negociación","Venta Cerrada","Entregado"];let idx=orden.indexOf(deals[i].estado);deals[i].estado=orden[(idx+1)%orden.length];render();}
-function borrar(i){if(confirm('Borrar?')){deals.splice(i,1);render();}}
-function whatsapp(i){let d=deals[i];let msg=`Hola ${d.cliente}! Te habla Diosnel de Agro Richter. Sobre ${d.maquina} ${formatGs(d.precio)} - Estado: ${d.estado}`;window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}
-function abrirModal(){modal.classList.remove('hidden');}function cerrarModal(){modal.classList.add('hidden');}
-function guardar(){deals.push({cliente:f_cliente.value||"Cliente",maquina:f_maquina.value,precio:f_precio.value||0,estado:f_estado.value,nota:f_nota.value||"Nuevo lead"});cerrarModal();render();}
+let ventas=JSON.parse(localStorage.getItem('agro_ventas'))||[
+{cli:"Carlos Lopez - Lambaré",prod:"Glifosato 20L",monto:380000,estado:"Pagado"},
+{cli:"Marta Gimenez",prod:"Urea 50kg x 10",monto:4200000,estado:"A Cobrar"},
+{cli:"Estancia San Jose",prod:"Semilla Maiz Dekalb",monto:950000,estado:"Entregado"}
+];
+function fmt(n){return'Gs. '+Number(n).toLocaleString('es-PY');}
+function render(){
+let q=(document.getElementById('bus')?.value||'').toLowerCase();
+let filt=ventas.filter(v=>v.cli.toLowerCase().includes(q));
+document.getElementById('lista').innerHTML=filt.map((v,i)=>`<div class="p-4 flex justify-between items-center text-sm"><div><p class="font-bold">${v.cli}</p><p class="text-xs opacity-60">${v.prod} - ${v.estado}</p></div><div class="text-right"><p class="font-black">${fmt(v.monto)}</p><button onclick="borrar(${i})" class="text-[10px] text-red-500">Borrar</button></div></div>`).join('')||'<p class="p-6 text-center opacity-50 text-sm">Sin ventas</p>';
+let total=ventas.reduce((a,b)=>a+Number(b.monto),0);
+let cobrar=ventas.filter(v=>v.estado=='A Cobrar').reduce((a,b)=>a+Number(b.monto),0);
+document.getElementById('s-hoy').innerText=ventas.length;
+document.getElementById('s-total').innerText=fmt(total);
+document.getElementById('s-cobrar').innerText=fmt(cobrar);
+document.getElementById('s-cli').innerText=new Set(ventas.map(v=>v.cli)).size;
+localStorage.setItem('agro_ventas',JSON.stringify(ventas));
+}
+function abrir(){modal.classList.remove('hidden');}function cerrar(){modal.classList.add('hidden');}
+function guardar(){ventas.unshift({cli:f_cli.value||'Cliente',prod:f_prod.value||'Producto',monto:f_monto.value||0,estado:f_estado.value});cerrar();render();f_cli.value='';f_prod.value='';f_monto.value='';}
+function borrar(i){if(confirm('¿Borrar venta?')){ventas.splice(i,1);render();}}
 render();
-</script></body></html>
+</script>
+</body>
+</html>
