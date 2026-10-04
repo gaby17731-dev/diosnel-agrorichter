@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ventas - Agro Richter</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100">
+<div class="bg-green-700 text-white p-4 flex justify-between items-center sticky top-0">
+<div class="flex items-center gap-2"><div class="bg-white text-green-700 w-10 h-10 rounded-xl flex items-center justify-center font-black">AR</div><div><h1 class="font-bold leading-none">Agro Richter</h1><p class="text-xs opacity-80">Sistema de Ventas</p></div></div>
+<div class="flex gap-2"><a href="index.html" class="bg-white/20 px-4 py-2 rounded-full text-sm">Catálogo</a><button onclick="abrir()" class="bg-white text-green-700 px-4 py-2 rounded-full font-bold text-sm">+ Venta</button></div>
+</div>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 max-w-6xl mx-auto">
+<div class="bg-white p-4 rounded-xl shadow border-l-4 border-green-600"><p class="text-[11px] opacity-60 font-bold">VENTAS HOY</p><p id="s-hoy" class="text-2xl font-black">0</p></div>
+<div class="bg-white p-4 rounded-xl shadow border-l-4 border-blue-600"><p class="text-[11px] opacity-60 font-bold">TOTAL GS.</p><p id="s-total" class="text-xl font-black">Gs. 0</p></div>
+<div class="bg-white p-4 rounded-xl shadow border-l-4 border-yellow-500"><p class="text-[11px] opacity-60 font-bold">A COBRAR</p><p id="s-cobrar" class="text-xl font-black">Gs. 0</p></div>
+<div class="bg-white p-4 rounded-xl shadow"><p class="text-[11px] opacity-60">CLIENTES</p><p id="s-cli" class="text-2xl font-black">0</p></div>
+</div>
+
+<div class="max-w-6xl mx-auto p-4">
+<div class="bg-white rounded-xl shadow overflow-hidden">
+<div class="p-4 border-b flex justify-between items-center"><h2 class="font-bold">Últimas Ventas</h2><input id="bus" oninput="render()" placeholder="Buscar cliente..." class="border rounded-full px-3 py-2 text-sm"></div>
+<div id="lista" class="divide-y"></div>
+</div>
+</div>
+
+<div id="modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50"><div class="bg-white rounded-2xl p-6 w-full max-w-md space-y-3"><h3 class="font-bold text-lg">Nueva Venta</h3><input id="f_cli" placeholder="Cliente: Ej. Diosnel - 0981..." class="w-full border p-3 rounded-xl text-sm"><input id="f_prod" placeholder="Producto: Ej. Urea 50kg" class="w-full border p-3 rounded-xl text-sm"><input id="f_monto" type="number" placeholder="Monto Gs." class="w-full border p-3 rounded-xl text-sm"><select id="f_estado" class="w-full border p-3 rounded-xl text-sm"><option value="Pagado">Pagado ✅</option><option value="A Cobrar">A Cobrar ⏳</option><option value="Entregado">Entregado 📦</option></select><div class="flex gap-2"><button onclick="cerrar()" class="flex-1 border py-3 rounded-xl">Cancelar</button><button onclick="guardar()" class="flex-1 bg-green-700 text-white py-3 rounded-xl font-bold">Guardar Venta</button></div></div></div>
+
+<script>
+let ventas=JSON.parse(localStorage.getItem('agro_ventas'))||[
+{cli:"Carlos Lopez - Lambaré",prod:"Glifosato 20L",monto:380000,estado:"Pagado"},
+{cli:"Marta Gimenez",prod:"Urea 50kg x 10",monto:4200000,estado:"A Cobrar"},
+{cli:"Estancia San Jose",prod:"Semilla Maiz Dekalb",monto:950000,estado:"Entregado"}
+];
+function fmt(n){return'Gs. '+Number(n).toLocaleString('es-PY');}
+function render(){
+let q=(document.getElementById('bus')?.value||'').toLowerCase();
+let filt=ventas.filter(v=>v.cli.toLowerCase().includes(q));
+document.getElementById('lista').innerHTML=filt.map((v,i)=>`<div class="p-4 flex justify-between items-center text-sm"><div><p class="font-bold">${v.cli}</p><p class="text-xs opacity-60">${v.prod} - ${v.estado}</p></div><div class="text-right"><p class="font-black">${fmt(v.monto)}</p><button onclick="borrar(${i})" class="text-[10px] text-red-500">Borrar</button></div></div>`).join('')||'<p class="p-6 text-center opacity-50 text-sm">Sin ventas</p>';
+let total=ventas.reduce((a,b)=>a+Number(b.monto),0);
+let cobrar=ventas.filter(v=>v.estado=='A Cobrar').reduce((a,b)=>a+Number(b.monto),0);
+document.getElementById('s-hoy').innerText=ventas.length;
+document.getElementById('s-total').innerText=fmt(total);
+document.getElementById('s-cobrar').innerText=fmt(cobrar);
+document.getElementById('s-cli').innerText=new Set(ventas.map(v=>v.cli)).size;
+localStorage.setItem('agro_ventas',JSON.stringify(ventas));
+}
+function abrir(){modal.classList.remove('hidden');}function cerrar(){modal.classList.add('hidden');}
+function guardar(){ventas.unshift({cli:f_cli.value||'Cliente',prod:f_prod.value||'Producto',monto:f_monto.value||0,estado:f_estado.value});cerrar();render();f_cli.value='';f_prod.value='';f_monto.value='';}
+function borrar(i){if(confirm('¿Borrar venta?')){ventas.splice(i,1);render();}}
+render();
+</script>
+</body>
+</html>
